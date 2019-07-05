@@ -7,4 +7,5 @@ import Cart from "./Cart";
 
 
 // Add the Cart component to the `#root` element below!
-// YOUR CODE HERE
+let rootElement = document.getElementById('root');
+ReactDOM.render(<Cart />,  rootElement);
