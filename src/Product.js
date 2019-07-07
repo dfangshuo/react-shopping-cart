@@ -6,25 +6,25 @@ class Product extends React.Component {
         this.state = {
             productName: this.props.productName,
             price: this.props.price,
-            limit: this.props.limit,
-            amount: 0
+            limit: this.props.limit
+            // , amount: 0
         }
     }
 
-    addToCart(productName) {
-        if (this.state.limit == 0) {
-            window.alert("This item is out of stock!");
-        } else if (this.state.amount > this.state.limit) {
-            window.alert("There are too many " + productName +  " in your cart!");
-        } else {
-            this.setState({
-                amount: this.state.amount + 1
-            }, () => {
-                window.alert("There are " + this.state.amount + " " + productName +  "s in your cart!");
-            })
-        }
+    // addToCart(productName) {
+    //     if (this.state.limit == 0) {
+    //         window.alert("This item is out of stock!");
+    //     } else if (this.state.amount > this.state.limit) {
+    //         window.alert("There are too many " + productName +  " in your cart!");
+    //     } else {
+    //         this.setState({
+    //             amount: this.state.amount + 1
+    //         }, () => {
+    //             window.alert("There are " + this.state.amount + " " + productName +  "s in your cart!");
+    //         })
+    //     }
         
-    }
+    // }
 
     render() {
         return (
@@ -36,9 +36,9 @@ class Product extends React.Component {
                         Price: ${this.state.price}
                     </div>
                     </div>
-                    <div className="ui bottom attached button" onClick = {() => this.addToCart(this.state.productName)}>
+                    <div className="ui bottom attached button" onClick = {() => {}}>
                     <i className="add icon"></i>
-                    Add Friend
+                    Add to Cart
                     </div>
                 </div>
             </div>
