@@ -28,20 +28,20 @@ class Product extends React.Component {
 
     render() {
         return (
-            <div className="ui cards">
-                <div className="card">
-                    <div className="content">
-                    <div className="header">{this.state.productName}</div>
-                    <div className="description">
-                        Price: ${this.state.price}
-                    </div>
-                    </div>
-                    <div className="ui bottom attached button" onClick = {() => {}}>
-                    <i className="add icon"></i>
-                    Add to Cart
-                    </div>
+            // <div className="ui cards">
+            <div className="card">
+                <div className="content">
+                <div className="header">{this.state.productName}</div>
+                <div className="description">
+                    Price: ${this.state.price}
+                </div>
+                </div>
+                <div className="ui bottom attached button" onClick = {() => this.props.onAddToCart(this.state.productName, this.state.price)}>
+                <i className="add icon"></i>
+                Add to Cart
                 </div>
             </div>
+            // </div>
         );
     }
 }
