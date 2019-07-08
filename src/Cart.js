@@ -12,8 +12,17 @@ class Cart extends React.Component {
     this.state = {
       cartItems: []
     }
-
   }
+
+  // object must have the productName and price fields
+  // objects must not be undefined
+  isItem(obj, productName, price) {
+    if (obj.productName === productName && obj.price === price) {
+     return true;
+     } else {
+       return false;
+     }
+   }
   
   // mistake you made: making a modification without calling setState
   handleAddToCart(productName, price) {
@@ -62,14 +71,16 @@ class Cart extends React.Component {
     });
   }
 
-  // object must have the productName and price fields
-  // objects must not be undefined
-  isItem(obj, productName, price) {
-   if (obj.productName === productName && obj.price === price) {
-    return true;
-    } else {
-      return false;
-    }
+  handleRemoveFromCart(productName, price) {
+    this.state.cartItems.forEach((item, index) => {
+      if (this.isItem(item, productName, price)) {
+        let newList = [...this.state.cartItems];
+        newList.splice(index, 1);
+        this.setState({
+          cartItems: newList
+        })
+      }
+    });
   }
 
   render() {
@@ -82,6 +93,7 @@ class Cart extends React.Component {
                     productName={product.name} 
                     price={product.cost} 
                     onAddToCart={(productName, price) => this.handleAddToCart(productName, price)}
+                    onRemoveFromCart={(productName, price) => this.handleRemoveFromCart(productName, price)}
                     // limit={product.stock} 
                   />
                 ))}

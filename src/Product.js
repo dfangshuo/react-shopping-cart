@@ -40,6 +40,10 @@ class Product extends React.Component {
                 <i className="add icon"></i>
                 Add to Cart
                 </div>
+                <div className="ui bottom attached button" onClick = {() => this.props.onRemoveFromCart(this.state.productName, this.state.price)}>
+                <i className="remove icon"></i>
+                Remove from Cart
+                </div>
             </div>
             // </div>
         );
