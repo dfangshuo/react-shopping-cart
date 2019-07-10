@@ -24,60 +24,96 @@ class Cart extends React.Component {
      }
    }
   
-  // mistake you made: making a modification without calling setState
-  handleAddToCart(productName, price) {
-    let hasItem = false;
-    let newList;
+  // // mistake you made: making a modification without calling setState
+  // handleAddToCart(productName, price) {
+  //   let hasItem = false;
+  //   let newList;
 
-    // for (let i = 0; i < this.state.cartItems.length; i ++) {
-    //   if (this.isItem(this.state.cartItems[i], productName, price)) {
-    //     // newItem = this.state.cartItems[i]
-    //     newItem = this.state.cartItems.splice(i,1);
-    //     newItem.count += 1;
-    //     hasItem = true
-    //   }
-    // }
-    this.state.cartItems.forEach((item, index) => {
-      if (this.isItem(item, productName, price)) {
-        // newItem = {
-        //   productName: item.productName,
-        //   price: item.price,
-        //   count: item.count + 1
-        // }
-        newList = this.state.cartItems.concat({
-          productName: item.productName,
-          price: item.price,
-          count: item.count + 1
-        });
-        newList.splice(index, 1);
-        hasItem = true
-      }
-    });
+  //   // for (let i = 0; i < this.state.cartItems.length; i ++) {
+  //   //   if (this.isItem(this.state.cartItems[i], productName, price)) {
+  //   //     // newItem = this.state.cartItems[i]
+  //   //     newItem = this.state.cartItems.splice(i,1);
+  //   //     newItem.count += 1;
+  //   //     hasItem = true
+  //   //   }
+  //   // }
+  //   this.state.cartItems.forEach((item, index) => {
+  //     if (this.isItem(item, productName, price)) {
+  //       // newItem = {
+  //       //   productName: item.productName,
+  //       //   price: item.price,
+  //       //   count: item.count + 1
+  //       // }
+  //       newList = this.state.cartItems.concat({
+  //         productName: item.productName,
+  //         price: item.price,
+  //         count: item.count + 1
+  //       });
+  //       newList.splice(index, 1);
+  //       hasItem = true
+  //     }
+  //   });
     
-    if (!hasItem) {
-      newList = this.state.cartItems.concat({
-        productName: productName,
-        price: price,
-        count: 1
+  //   if (!hasItem) {
+  //     newList = this.state.cartItems.concat({
+  //       productName: productName,
+  //       price: price,
+  //       count: 1
+  //     });
+  //     // newItem = {
+  //     //   productName: productName,
+  //     //   price: price,
+  //     //   count: 1
+  //     // }
+  //   }
+
+  //   this.setState({
+  //     cartItems: newList
+  //   });
+
+  //   // this.setState({
+  //   //   cartItems: this.state.cartItems.concat({
+  //   //     productName: productName,
+  //   //     price: price,
+  //   //     count: 1
+  //   //   }).reduce(this.combineItems)
+  //   // });
+  // }
+
+  handleAddToCart(productName, price) {
+    const cartItems = this.state.cartItems.concat({
+      productName: productName,
+      price: price,
+      count: 1
+    });
+
+    // good catch #1 (aka i actually managed to catch it)
+    // if you convert from a 1 line => function
+    // to a multiple one line, you need to 
+    // remember to use a return statement
+    const reducer = (accumulator, curr) => {
+      let seen = false;
+      accumulator.forEach(item => {
+        if (item.productName === curr.productName && item.price === curr.price) {
+          item.count += curr.count;
+          seen = true;
+        }
       });
-      // newItem = {
-      //   productName: productName,
-      //   price: price,
-      //   count: 1
-      // }
+      return seen ? accumulator : accumulator.concat(curr);
+      
     }
 
     this.setState({
-      cartItems: newList
-    });
+      cartItems: cartItems.reduce(reducer, [])
+    }) 
+  }
 
-    // this.setState({
-    //   cartItems: this.state.cartItems.concat({
-    //     productName: productName,
-    //     price: price,
-    //     count: 1
-    //   }).reduce(this.combineItems)
-    // });
+  isSameItem(item1, item2) {
+    if (item1.productName === item2.productName && item1.price === item2.price) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   combineItems(total, curr) {
