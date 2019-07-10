@@ -80,12 +80,36 @@ class Cart extends React.Component {
   //   // });
   // }
 
-  handleAddToCart(productName, price) {
-    const cartItems = this.state.cartItems.concat({
-      productName: productName,
-      price: price,
-      count: 1
-    });
+  // // ying hang's version, his usage of reduce just recreates the same cart
+  // // albeit with the count field of the appropriate item updated accordingly
+  // // it assumes that the cart only has one of eeach item
+  // // at the end if the item is not seen, it's added to the cart
+  // handleAddToCart(productName, price) {
+  //   let found = false;
+  //   // Check if new item is already in shopping cart
+  //   let newCart = this.state.cartItems.reduce((acc, curr) => {
+  //     if (!found && curr.name === productName && curr.price === price) {
+  //       curr.count += 1;
+  //       found = true;
+  //     }
+  //     acc.push(curr);
+  //     return acc;
+  //   }, []);
+  //   // Add the new item to the shopping cart
+  //   if (!found) newCart.push({
+  //     name: productName,
+  //     price: price,
+  //     count: 1
+  //   });
+  //   this.setState({cartItems: newCart});
+  // }
+
+  // handleAddToCart(productName, price) {
+  //   const cartItems = this.state.cartItems.concat({
+  //     productName: productName,
+  //     price: price,
+  //     count: 1
+  //   });
 
     // good catch #1 (aka i actually managed to catch it)
     // if you convert from a 1 line => function
