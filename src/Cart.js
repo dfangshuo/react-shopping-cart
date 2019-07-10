@@ -66,21 +66,54 @@ class Cart extends React.Component {
       //   count: 1
       // }
     }
+
     this.setState({
       cartItems: newList
     });
+
+    // this.setState({
+    //   cartItems: this.state.cartItems.concat({
+    //     productName: productName,
+    //     price: price,
+    //     count: 1
+    //   }).reduce(this.combineItems)
+    // });
+  }
+
+  combineItems(total, curr) {
+    if (total.productName === curr.productName && total.price === curr.price) {
+      total.count += curr.count;
+      return [total];
+    } else {
+      return [total, curr]
+    }
   }
 
   handleRemoveFromCart(productName, price) {
-    this.state.cartItems.forEach((item, index) => {
+    let cartItems = [...this.state.cartItems];
+    cartItems.forEach(item => {
       if (this.isItem(item, productName, price)) {
-        let newList = [...this.state.cartItems];
-        newList.splice(index, 1);
-        this.setState({
-          cartItems: newList
-        })
+        item.count -= 1;
       }
+    })
+    this.setState({
+      cartItems: cartItems.filter(item => item.count > 0)
     });
+    // this.state.cartItems.forEach((item, index) => {
+    //   if (this.isItem(item, productName, price)) {
+    //     let newList;
+    //     if (item.count > 1) {
+    //       newList = [...this.state.cartItems];
+    //       newList[index].count -= 1;
+    //     } else {
+    //       newList = [...this.state.cartItems];
+    //       newList.splice(index, 1);
+    //     }
+    //     this.setState({
+    //       cartItems: newList
+    //     });
+    //   }
+    // });
   }
 
   render() {
