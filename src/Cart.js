@@ -104,12 +104,12 @@ class Cart extends React.Component {
   //   this.setState({cartItems: newCart});
   // }
 
-  // handleAddToCart(productName, price) {
-  //   const cartItems = this.state.cartItems.concat({
-  //     productName: productName,
-  //     price: price,
-  //     count: 1
-  //   });
+  handleAddToCart(productName, price) {
+    const cartItems = this.state.cartItems.concat({
+      productName: productName,
+      price: price,
+      count: 1
+    });
 
     // good catch #1 (aka i actually managed to catch it)
     // if you convert from a 1 line => function
