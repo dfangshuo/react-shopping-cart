@@ -23,7 +23,11 @@ class Receipt extends React.Component {
     items.forEach(item => {
       total += item.price * item.count;
     });
-    return total.toFixed(2);
+    if (total % 1 === 0) {
+      return total;
+    } else {
+      return total.toFixed(2);
+    } 
   }
 
   render() {
